@@ -1,7 +1,8 @@
 #include <iostream>
 
 int main(void){
-	std::cout << "Hello World" << std::endl;
+	std::cout << "Player..." << std::endl;
+	Player player1("현명","도적");
 	return 0;
 }
 
