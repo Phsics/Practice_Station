@@ -5,16 +5,16 @@
 #include <math.h>
 #include "tgaimage.h"
 
-TGAImage::TGAImage() : data(NULL), width(0), height(0), bytespp(0) {
+TGAImage::TGAImage() : data(NULL), width(0), height(0), bytespp(0) {		// 이미지의 데이터와 넓이 높이 픽셀 당 바이트	
 }
 
-TGAImage::TGAImage(int w, int h, int bpp) : data(NULL), width(w), height(h), bytespp(bpp) {
-	unsigned long nbytes = width*height*bytespp;
-	data = new unsigned char[nbytes];
+TGAImage::TGAImage(int w, int h, int bpp) : data(NULL), width(w), height(h), bytespp(bpp) {	//초기 데이터는 널
+	unsigned long nbytes = width*height*bytespp;	//바이트 수는 넓이 곱하기 높이 곱하기 픽셀당 바이트
+	data = new unsigned char[nbytes];	//unsigned char 는 256바이트까지 지원되므로 RGB데이터가 들어가기적당함
 	memset(data, 0, nbytes);
 }
 
-TGAImage::TGAImage(const TGAImage &img) {
+TGAImage::TGAImage(const TGAImage &img) {		//이미지를 매개변수로 사용하여 함수를 호출할 경우
 	width = img.width;
 	height = img.height;
 	bytespp = img.bytespp;
