@@ -23,92 +23,92 @@ TGAImage::TGAImage(const TGAImage &img) {		//이미지를 매개변수로 사용
 	memcpy(data, img.data, nbytes);
 }
 
-TGAImage::~TGAImage() {
-	if (data) delete [] data;
+TGAImage::~TGAImage() {					 
+	if (data) delete [] data;			//데이터가 NULL이 아닐경우 데이터삭제 
 }
 
-TGAImage & TGAImage::operator =(const TGAImage &img) {
-	if (this != &img) {
-		if (data) delete [] data;
-		width  = img.width;
+TGAImage & TGAImage::operator =(const TGAImage &img) {		//이미지 교체? 로 생각됨 
+	if (this != &img) {			//이미지가 아닐경우? 
+		if (data) delete [] data;		//데이터가 NULL이 아닐경우 삭제 
+		width  = img.width;				//이미지의 넓이 높이 bpp를 맞춤 
 		height = img.height;
 		bytespp = img.bytespp;
 		unsigned long nbytes = width*height*bytespp;
-		data = new unsigned char[nbytes];
+		data = new unsigned char[nbytes];			//새로 데이터를 정의 
 		memcpy(data, img.data, nbytes);
 	}
-	return *this;
+	return *this;		
 }
 
-bool TGAImage::read_tga_file(const char *filename) {
-	if (data) delete [] data;
-	data = NULL;
-	std::ifstream in;
-	in.open (filename, std::ios::binary);
-	if (!in.is_open()) {
+bool TGAImage::read_tga_file(const char *filename) {		//파일 읽기 반환형 불 
+	if (data) delete [] data;		//데이터 삭제 
+	data = NULL;					//데이터 = 널 
+	std::ifstream in;				//ifstream in :: input file stream  in이라는 이름의 파일스트림 
+	in.open (filename, std::ios::binary);     		//in.open 으로 파일을 연다. 바이너리 형식으로 출력... 
+	if (!in.is_open()) {							//파일이 없어서 못여는 경우  
 		std::cerr << "can't open file " << filename << "\n";
 		in.close();
-		return false;
+		return false;		//파일열기 실패시 false 반환 
 	}
-	TGA_Header header;
-	in.read((char *)&header, sizeof(header));
+	TGA_Header header;		//파일 해더 
+	in.read((char *)&header, sizeof(header));	//헤더파일 크기만큼 파일을 읽어내린다 
 	if (!in.good()) {
 		in.close();
 		std::cerr << "an error occured while reading the header\n";
 		return false;
 	}
-	width   = header.width;
+	width   = header.width;			//헤더파일에서 이미지의 넓이와 높이 bbp를 읽어서 집어넣는다. 
 	height  = header.height;
 	bytespp = header.bitsperpixel>>3;
-	if (width<=0 || height<=0 || (bytespp!=GRAYSCALE && bytespp!=RGB && bytespp!=RGBA)) {
+	if (width<=0 || height<=0 || (bytespp!=GRAYSCALE && bytespp!=RGB && bytespp!=RGBA)) {	//높이,넓이, bpp가 rgb, rgb투명,무채색이 아닐경우 오류 
 		in.close();
 		std::cerr << "bad bpp (or width/height) value\n";
 		return false;
 	}
-	unsigned long nbytes = bytespp*width*height;
+	unsigned long nbytes = bytespp*width*height;		//데이터 범위 지정 
 	data = new unsigned char[nbytes];
-	if (3==header.datatypecode || 2==header.datatypecode) {
-		in.read((char *)data, nbytes);
-		if (!in.good()) {
+	if (3==header.datatypecode || 2==header.datatypecode) {			//데이터 타입코드가 2,3일경우 
+		in.read((char *)data, nbytes);				//파일을 읽어서 데이터변수에 저장 
+		if (!in.good()) {							//ios::good이란 파일읽기중 오류가 없을경우 참 반환 
 			in.close();
 			std::cerr << "an error occured while reading the data\n";
 			return false;
 		}
-	} else if (10==header.datatypecode||11==header.datatypecode) {
-		if (!load_rle_data(in)) {
+	} else if (10==header.datatypecode||11==header.datatypecode) {		//데이터 타입코드가 10,11일경우 
+		if (!load_rle_data(in)) {		//로드데이터 
 			in.close();
 			std::cerr << "an error occured while reading the data\n";
 			return false;
 		}
-	} else {
+	} else {															//그 외의 타입코드일경우 
 		in.close();
-		std::cerr << "unknown file format " << (int)header.datatypecode << "\n";
+		std::cerr << "unknown file format " << (int)header.datatypecode << "\n";	//알수없는 파일 포멧형식 
 		return false;
 	}
-	if (!(header.imagedescriptor & 0x20)) {
+	if (!(header.imagedescriptor & 0x20)) {		//헤더의 이미지묘사기가 0x20일 경우 수직 
 		flip_vertically();
 	}
-	if (header.imagedescriptor & 0x10) {
+	if (header.imagedescriptor & 0x10) {		//헤더의 이미지묘사기가 0x10일 경우 수평 
 		flip_horizontally();
 	}
-	std::cerr << width << "x" << height << "/" << bytespp*8 << "\n";
+	std::cerr << width << "x" << height << "/" << bytespp*8 << "\n";		//std::cerr 표준 에러 스트림 std::clog 표준 로그 스트림 
 	in.close();
 	return true;
 }
 
-bool TGAImage::load_rle_data(std::ifstream &in) {
-	unsigned long pixelcount = width*height;
-	unsigned long currentpixel = 0;
-	unsigned long currentbyte  = 0;
-	TGAColor colorbuffer;
-	do {
-		unsigned char chunkheader = 0;
-		chunkheader = in.get();
-		if (!in.good()) {
+bool TGAImage::load_rle_data(std::ifstream &in) {			//로드 데이터 
+	unsigned long pixelcount = width*height;		//픽셀수 
+	unsigned long currentpixel = 0;					//최근 픽셀	 
+	unsigned long currentbyte  = 0;					//최근 바이트 
+	TGAColor colorbuffer;							//색 버퍼 
+	do {											//do 루프 
+		unsigned char chunkheader = 0;				//덩어리헤더 = 0;		
+		chunkheader = in.get();						//get()이란, 입력버퍼에서 문자 하나를 가져옴				
+		if (!in.good()) {							//good이 아니면 오류 
 			std::cerr << "an error occured while reading the data\n";
 			return false;
 		}
-		if (chunkheader<128) {
+		if (chunkheader<128) {						
 			chunkheader++;
 			for (int i=0; i<chunkheader; i++) {
 				in.read((char *)colorbuffer.raw, bytespp);
@@ -315,7 +315,7 @@ void TGAImage::clear() {
 
 bool TGAImage::scale(int w, int h) {
 	if (w<=0 || h<=0 || !data) return false;
-	unsigned char *tdata = new unsigned char[w*h*bytespp];
+	unsigned char *tdata = new unsigned char[w*h*bytespp];		//temp 데이터 
 	int nscanline = 0;
 	int oscanline = 0;
 	int erry = 0;
