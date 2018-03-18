@@ -1,7 +1,80 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <title>연습용 제목</title>	
     </head>
-    <body>
-        <p>Hello World!</p>
+    <body style = "text.align:center;">
+        <header><h1>Hello World!</h1><hr/></header>	<!--<h1>~<h6> 글자 크기를 지정함-->
+	<p>이것은<b>굵은 글자</b>입니다.</p><br/>		<!--<hr/>수평선 긋기,<br/>한줄띄기-->
+	<p>이것은<strong>강조된 글자</strong>입니다.</p>
+	<p>이것은<i>기울어진 글자</i>입니다.</p>
+	<p>이것은<ins>밑줄이 쳐진 글자</ins>입니다.</p>
+	<p>이것은<del>취소선이 그어진 글자</del>입니다.</p>
+	<p>이것은<sub>아래 첨자</sub>입니다.</p>
+	<p>이것은<sup>위 첨자</sup>입니다.</p>
+
+	<img src="a.png" alt="하트" title="하트" />    <!--이미지 출력-->
+	
+	<li>
+	<a href="http://github.com" target="_black">깃 허브 이동하기</a>	<!--링크걸기, target="_black" :: 브라우저 새탭에서 열기-->
+	</li>
+	<li>
+	<a href="http://github.com" target="_black">깃 허브 이동하기</a>
+	</li>
+	
+
+
+	<table border="1">
+		<tr>
+			<td>HTML</td>
+			<td>CSS</td>
+		</tr>
+		<tr>
+			<td>JavaScript</td>
+			<td>웹 개발</td>
+		</tr>
+	</table>
+
+	<br/>
+
+	<form>
+		<input type="text" name="username" placeholder="사용자 이름" />
+		<input type="password" name="password" placeholder="비밀번호" />
+		<!--type은 형식, name은 객체이름, placeholder 빈칸일경우 표시될 문자열이다-->
+	</form>
+
+	<br/>
+
+	<form>
+		<input type="radio" name"age" value="adult">성인</input>
+		<input type="radio" name"age" value="youth">청소년</input>
+		<input type="radio" name"age" value="child">어린이</input>
+		<!-- type은 형식, name은 객체이름, value는 라디오버튼의 값-->
+	</form>
+
+	<br />
+
+	<form>
+		<input type="checkbox" name"checkbox1" value="chrome">크롬</input>
+		<input type="checkbox" name"checkbox1" value="firefox">파이어폭스</input>
+		<input type="checkbox" name"checkbox1" value="edge">엣지</input>
+		<input type="checkbox" name"checkbox1" value="safari">사파리</input>
+		<input type="checkbox" name"checkbox1" value="opera">오페라</input>
+		
+		<!-- type은 형식, name은 객체이름, value는 클릭박스의 값-->
+	</form>
+
+		<!-- 형식 "text","button","email","tel","url","radio","checkbox"-->
+
+
+		<!-- 블록요소 :: 공간을 차지하기 때문에 줄바꿈을 하지 않아도 자동으로 줄이 바뀌는 요소 -->
+		<!-- 예 :: <p> <h1> <li> <table> <div> 등등 -->
+		<!-- 인라인 요소 :: 보통 블록 요소 안에 위치하고 줄 바꿈을 하지 않는다. -->
+		<!-- 예 :: <b> <a> <img> <input> <span> 등등 -->
+		<!-- <span>은 모양을 지정할때 사용 -->
+		<!-- HTML5에서는 웹에서 오디오,비디오,로컬 저장소, 위치서비스 등의 기능들이 추가되고, 페이지 구조를 고려한 다양한 태그들이 추가되었음 -->
+		<!-- 문서 맨 위에 <!DOCTYPE html> 을 적어서 HTML5를 적용하는 페이지라고 나타냄 -->
+		<!-- HTML5는 <header> <nav> <aside> <section> <article> <footer>로 구분됨 -->
+		<!-- HTML5에서는 mp3나 wav 등의 오디오 파일 형식 지원 -->
     </body>
 </html>
