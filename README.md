@@ -8,4 +8,5 @@
 ## Pycharm : https://www.jetbrains.com/pycharm/download/
 ## Anaconda : https://www.anaconda.com/download/
 
+## https://blog.naver.com/tipsware/221216558792
 ## 현재 배우고 있는것 : C 언어 튜토리얼 리눅스의 쉘을 C언어로 만들기
