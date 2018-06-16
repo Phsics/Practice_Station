@@ -631,3 +631,25 @@ int main(void){
 	return 0;
 }
 ```
+### 동적 할당과 메모리 해제
+```cpp
+#include <iostream>
+
+int main(void){
+	
+	int *a = new int;
+	
+	if(a==NULL){
+		std::cout << "메모리 할당 실패" <<std::endl;
+		return -1;
+	}
+	
+	std::cout << "a의 위치 : " << &a << std::endl;
+	*a = 10;
+	std::cout << "a초기화 값 : " << *a << std::endl;	
+	
+	delete a;	
+
+	
+	return 0;
+}
