@@ -561,3 +561,42 @@ int main(void){
 	return 0;
 }
 ```
+### 임시
+```cpp
+#include <iostream>
+
+struct card {
+	char shape[10];
+	int number;
+	card * nextcard;
+	
+};
+
+void printCard(card *a,int count) {
+	card b = a[0];
+	
+	while(b.nextcard == '\0'){
+		std::cout << b.shape << ". " << b.number << std::endl;
+		b = *(b.nextcard);
+	}
+}
+
+
+int main(void){
+
+	card trump[4] = {
+		{"heart",3,'\0'},
+		{"diamond",10,'\0'},
+		{"spade",7,'\0'},
+		{"spade",4,'\0'}
+	};
+	trump[0].nextcard = & trump[2];
+	trump[2].nextcard = & trump[1];
+	trump[1].nextcard = & trump[3];
+
+	printCard(trump,sizeof(trump)/sizeof(trump[0]));
+
+
+	return 0;
+}
+```
