@@ -8,7 +8,9 @@
 ## Pycharm : https://www.jetbrains.com/pycharm/download/
 ## Anaconda : https://www.anaconda.com/download/
 
-## c++ tutorial_33 : https://blog.naver.com/fb_lua/220842830729
+## c++ tutorial_55 : https://blog.naver.com/fb_lua/221105754379
+### 멤버 이니셜 라이저란?
+
 ## 현재 배우고 있는것 : C 언어 튜토리얼 리눅스의 쉘을 C언어로 만들기
 
 ### Hello World 출력하기
