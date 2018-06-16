@@ -8,7 +8,7 @@
 ## Pycharm : https://www.jetbrains.com/pycharm/download/
 ## Anaconda : https://www.anaconda.com/download/
 
-## c++ tutorial : https://blog.naver.com/fb_lua/220831939517
+## c++ tutorial_33 : https://blog.naver.com/fb_lua/220842830729
 ## 현재 배우고 있는것 : C 언어 튜토리얼 리눅스의 쉘을 C언어로 만들기
 
 ### Hello World 출력하기
