@@ -561,7 +561,7 @@ int main(void){
 	return 0;
 }
 ```
-### 임시
+### 구조체 포인터를 가진 구조체
 ```cpp
 #include <iostream>
 
@@ -572,12 +572,11 @@ struct card {
 	
 };
 
-void printCard(card *a,int count) {
-	card b = a[0];
+void printCard(card *a) {
 	
-	while(b.nextcard == '\0'){
-		std::cout << b.shape << ". " << b.number << std::endl;
-		b = *(b.nextcard);
+	while(a->nextcard != '\0'){
+		std::cout << a->shape << ". " << a->number << std::endl;
+		a = (a->nextcard);
 	}
 }
 
@@ -594,7 +593,7 @@ int main(void){
 	trump[2].nextcard = & trump[1];
 	trump[1].nextcard = & trump[3];
 
-	printCard(trump,sizeof(trump)/sizeof(trump[0]));
+	printCard(&trump[0]);
 
 
 	return 0;
