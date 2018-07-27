@@ -7,6 +7,7 @@
 ## Python : https://www.python.org
 ## Pycharm : https://www.jetbrains.com/pycharm/download/
 ## Anaconda : https://www.anaconda.com/download/
+## Web Debugger : http://jsfiddle.net/
 
 ## c++ tutorial_55 : https://blog.naver.com/fb_lua/221105754379
 ### 멤버 이니셜 라이저란?
